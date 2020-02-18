@@ -7,7 +7,11 @@ class StoriesController < ApplicationController
 
     def create
         story = Story.create(story_params)
-        render json: story 
+        if story.valid?
+            render json: story
+        else
+            render story.errors.full_messages.as_json, status: 400 #catch this on front end
+        end 
     end
 
     def show

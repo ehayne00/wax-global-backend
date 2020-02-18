@@ -2,7 +2,12 @@ class UsersController < ApplicationController
 
     def create
         user = User.create(user_params)
-        render json: user
+        if user.valid?
+            render json: user
+        else
+            render user.errors.full_messages.as_json, status: 400 #catch this on the front end
+        end
+
     end
 
     def show
