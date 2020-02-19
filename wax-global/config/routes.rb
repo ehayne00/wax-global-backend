@@ -6,5 +6,7 @@ Rails.application.routes.draw do
 
   get '/user_favourites', to: 'users#user_favourites'
   get '/user_stories', to: 'users#user_stories'
+  post '/login', to: 'users#login'
+  get '/validate', to: 'users#validate'
   
 end

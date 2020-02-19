@@ -37,6 +37,24 @@ class UsersController < ApplicationController
         render json: user.stories
     end
 
+    def login
+        user = User.find_by(username: params[:username])
+        if user and user.authenticate(params[:password])
+            render json: {user_username: user.username, user_id: user.id, token:issue_token({id: user.id})}
+        else
+            render json: {error: 'Username/Password invalid'}, status: 403
+        end
+    end
+
+    def validate
+        user = get_current_user
+        if user
+            render json: {user: user.username, token:issue_token({id: user.id}) }
+        else
+            render json: {error: 'Not Authorized'}, status: 401
+        end
+    end
+
     private
 
     def user_params

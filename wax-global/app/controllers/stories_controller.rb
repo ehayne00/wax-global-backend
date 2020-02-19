@@ -2,7 +2,7 @@ class StoriesController < ApplicationController
 
     def index
         stories = Story.all 
-        render json: stories
+        render json: stories, include: [:user]
     end
 
     def create
@@ -16,7 +16,7 @@ class StoriesController < ApplicationController
 
     def show
         story = Story.find(params[:id])
-        render json: story
+        render json: story, include: [:user]
     end
 
     def update
