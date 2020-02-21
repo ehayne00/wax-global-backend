@@ -5,7 +5,7 @@ class UsersController < ApplicationController
         user = User.create(user_params)
         
         if user
-            render json: {username: user.username, user_id: user.id, token:issue_token({id: user.id})}
+            render json: {user:user, token:issue_token({id: user.id})}
             #    render json: user
         else
             render user.errors.full_messages.as_json, status: 400 #catch this on the front end
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
         favourites = user.favourites
         favourite_stories = favourites.map{|fave| [fave.story, fave.story.user]}
         # users_of_stories = favourites.map{|fave| fave.story.user}
-        render json: favourite_stories
+        render json: favourite_stories.uniq
     end
 
     def user_stories
