@@ -29,6 +29,10 @@ class StoriesController < ApplicationController
         Story.destroy(params[:id])
     end
 
+    def other_user_stories
+        
+    end
+
     private
 
     def story_params

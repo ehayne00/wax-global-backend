@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
     def show
         user = User.find(params[:id])
-        render json: user
+        render json: {user: user, stories: user.stories}
     end
 
     def update
@@ -31,8 +31,9 @@ class UsersController < ApplicationController
     def user_favourites
         user = get_current_user
         favourites = user.favourites
-        favourite_stories = favourites.map{|fave| Story.find(fave.story_id)}
-        render json: favourite_stories #catch this at the other end- if null then say, you dont have any favourites yet.
+        favourite_stories = favourites.map{|fave| [fave.story, fave.story.user]}
+        # users_of_stories = favourites.map{|fave| fave.story.user}
+        render json: favourite_stories
     end
 
     def user_stories
