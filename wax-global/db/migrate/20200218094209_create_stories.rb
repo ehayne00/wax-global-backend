@@ -3,10 +3,10 @@ class CreateStories < ActiveRecord::Migration[6.0]
     create_table :stories do |t|
       t.string :user_id
       t.string :image
+      t.string :video
       t.string :title
       t.string :content
-      t.string :region
-      t.string :country
+      t.string :address
       t.string :latitude
       t.string :longitude
 

@@ -8,7 +8,7 @@ class StoriesController < ApplicationController
     def create
         story = Story.create(story_params)
         if story.valid?
-            render json: story
+            render json: story, include: [:user]
         else
             render story.errors.full_messages.as_json, status: 400 #catch this on front end
         end 
@@ -22,7 +22,7 @@ class StoriesController < ApplicationController
     def update
         story = Story.find(params[:id])
         story.update(story_params)
-        render json: story
+        render json: story, include: [:user]
     end
 
     def destroy
@@ -36,7 +36,7 @@ class StoriesController < ApplicationController
     private
 
     def story_params
-        params.require(:story).permit(:user_id, :image, :title, :content, :region, :country, :latitude, :longitude)
+        params.require(:story).permit(:user_id, :image, :video, :title, :content, :address, :latitude, :longitude)
     end
     
 end

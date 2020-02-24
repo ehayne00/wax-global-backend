@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 2020_02_18_094209) do
   create_table "stories", force: :cascade do |t|
     t.string "user_id"
     t.string "image"
+    t.string "video"
     t.string "title"
     t.string "content"
-    t.string "region"
-    t.string "country"
+    t.string "address"
     t.string "latitude"
     t.string "longitude"
     t.datetime "created_at", precision: 6, null: false
