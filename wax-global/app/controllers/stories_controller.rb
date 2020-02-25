@@ -10,7 +10,7 @@ class StoriesController < ApplicationController
         if story.valid?
             render json: story, include: [:user]
         else
-            render story.errors.full_messages.as_json, status: 400 #catch this on front end
+            render story.errors.full_messages.as_json, status: 400 
         end 
     end
 
@@ -29,14 +29,14 @@ class StoriesController < ApplicationController
         Story.destroy(params[:id])
     end
 
-    def other_user_stories
+    # def other_user_stories
         
-    end
+    # end
 
     private
 
     def story_params
-        params.require(:story).permit(:user_id, :image, :video, :title, :content, :address, :latitude, :longitude)
+        params.require(:story).permit(:user_id, :image, :video, :title, :content, :address, :latitude, :longitude, :country)
     end
     
 end

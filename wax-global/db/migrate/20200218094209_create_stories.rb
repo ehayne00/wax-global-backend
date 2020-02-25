@@ -9,6 +9,7 @@ class CreateStories < ActiveRecord::Migration[6.0]
       t.string :address
       t.string :latitude
       t.string :longitude
+      t.string :country
 
       t.timestamps
     end
