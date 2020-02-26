@@ -31,9 +31,8 @@ class UsersController < ApplicationController
     def user_favourites
         user = get_current_user
         favourites = user.favourites
-        favourite_stories = favourites.map{|fave| [fave.story, fave.story.user]}
-        # users_of_stories = favourites.map{|fave| fave.story.user}
-        render json: favourite_stories.uniq
+        favourite_stories = favourites.map{|fave| [fave.story, fave.story.user, fave]}
+        render json: favourite_stories
     end
 
     def user_stories
