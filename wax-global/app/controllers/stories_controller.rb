@@ -1,7 +1,7 @@
 class StoriesController < ApplicationController
 
     def index
-        stories = Story.all 
+        stories = Story.all.order(id: :desc)
         render json: stories, include: [:user]
     end
 
