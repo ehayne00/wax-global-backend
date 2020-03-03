@@ -7,10 +7,11 @@ class StoriesController < ApplicationController
 
     def create
         story = Story.create(story_params)
+
         if story.valid?
             render json: story, include: [:user]
         else
-            render story.errors.full_messages.as_json, status: 400 
+            render json: {error: story.errors.full_messages}, status: 400 
         end 
     end
 

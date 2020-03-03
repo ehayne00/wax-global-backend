@@ -4,11 +4,11 @@ class UsersController < ApplicationController
         
         user = User.create(user_params)
         
-        if user
+        if user.valid?
             render json: {user:user, token:issue_token({id: user.id})}
             #    render json: user
         else
-            render user.errors.full_messages.as_json, status: 400 #catch this on the front end
+            render json: {error: user.errors.full_messages}, status: 400
         end
 
     end

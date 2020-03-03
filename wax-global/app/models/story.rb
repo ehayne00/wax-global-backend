@@ -2,12 +2,19 @@ class Story < ApplicationRecord
     has_many :favourites
     belongs_to :user
 
-    # validates :image, { presence: true }
-    # validates :title, { length: {maximum: 200} }
-    # validates :region, { presence: true }
-    # validates :country, { presence: true }
-    # validates :latitude, { presence: true }
-    # validates :longitude, { presence: true }
-    
+    validate :image_xor_video
+    validates :title, { presence: true, length: {maximum: 100} }
+    validates :content, { presence: true, length: {maximum: 3000}}
+    validates :address, { presence: true }
+
+    private
+
+    def image_xor_video
+      unless image.blank? ^ video.blank?
+        errors.add(:base, "You must select an image or video.")
+      end
+    end
+
+
 
 end
