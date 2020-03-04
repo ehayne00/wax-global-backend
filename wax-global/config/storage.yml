@@ -14,12 +14,24 @@ local:
 #   region: us-east-1
 #   bucket: your_own_bucket
 
-# Remember not to checkin your GCS keyfile to a repository
-# google:
-#   service: GCS
-#   project: your_project
-#   credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
-#   bucket: your_own_bucket
+#Remember not to checkin your GCS keyfile to a repository
+google:
+  service: GCS
+  project: "Wax Global"
+  credentials: /Users/admin/Development/code/wax-global-backend/wax-global/config/Wax-Global-3032ff429773.json
+  bucket: "wax-global-bucket"
+
+  # google:
+  # service: GCS
+  # project: todo-pic
+  # credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'].as_json %>
+  # bucket: todo-pic-pjbelo
+
+google_dev:
+  service: GCS
+  project: "Wax Global"
+  credentials: <%= Rails.root.join("config/Wax-Global-Creds.json") %>
+  bucket: "wax-global-bucket"
 
 # Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
 # microsoft:

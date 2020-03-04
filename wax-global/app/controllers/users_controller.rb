@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
 
     def create
-        
-        user = User.create(user_params)
-        
+        user = User.create(username: params[:username], password: params[:password], email: params[:email], bio: params[:bio], picture: params[:picture])
+        user[:image] = url_for(user.picture)
+        user.save
+
         if user.valid?
-            render json: {user:user, token:issue_token({id: user.id})}
+            render json: {user: user, token: issue_token({id: user.id})}
             #    render json: user
         else
             render json: {error: user.errors.full_messages}, status: 400
@@ -20,7 +21,12 @@ class UsersController < ApplicationController
 
     def update
         user = User.find(params[:id])
-        user.update(user_params)
+        user.update(username: params[:username], password: params[:password], email: params[:email], bio: params[:bio])
+        if params[:picture] != "null"
+            user.update(picture: params[:picture])
+            user[:image] = url_for(user.picture)
+        end
+        user.save
         render json: {user: user, stories: user.stories}
     end
 

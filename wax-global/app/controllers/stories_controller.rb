@@ -6,8 +6,19 @@ class StoriesController < ApplicationController
     end
 
     def create
-        story = Story.create(story_params)
 
+        story = Story.create(user_id: params[:user_id], title: params[:title], content: params[:content], address: params[:address], latitude: params[:latitude], longitude: params[:longitude], country: params[:country])
+        if params[:picture] != ""
+            story.update(picture: params[:picture])
+            # byebug
+            story[:image] = url_for(story.picture)
+        elsif params[:movie] != ""
+            story.update(movie: params[:movie])
+            story[:video] = url_for(story.movie)
+        end
+        
+        story.save
+        
         if story.valid?
             render json: story, include: [:user]
         else
@@ -22,17 +33,23 @@ class StoriesController < ApplicationController
 
     def update
         story = Story.find(params[:id])
-        story.update(story_params)
+        story.update(user_id: params[:user_id], title: params[:title], content: params[:content], address: params[:address], latitude: params[:latitude], longitude: params[:longitude], country: params[:country])
+        
+        if params[:picture] != "null"    
+            story.update(picture: params[:picture])
+            story[:image] = url_for(story.picture)
+
+        elsif params[:movie] != "null"
+            story.update(movie: params[:movie])
+            story[:video] = url_for(story.movie)
+        end
+        story.save
         render json: story, include: [:user]
     end
 
     def destroy
         Story.destroy(params[:id])
     end
-
-    # def other_user_stories
-        
-    # end
 
     private
 
