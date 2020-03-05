@@ -34,12 +34,11 @@ class StoriesController < ApplicationController
     def update
         story = Story.find(params[:id])
         story.update(user_id: params[:user_id], title: params[:title], content: params[:content], address: params[:address], latitude: params[:latitude], longitude: params[:longitude], country: params[:country])
-        
-        if params[:picture] != "null"    
+        if params[:picture] != "null" && params[:picture] !=  story.image
             story.update(picture: params[:picture])
             story[:image] = url_for(story.picture)
 
-        elsif params[:movie] != "null"
+        elsif params[:movie] != "null" && params[:movie] !=  story.video
             story.update(movie: params[:movie])
             story[:video] = url_for(story.movie)
         end
