@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
 
     def create
-        user = User.create(username: params[:username], password: params[:password], email: params[:email], bio: params[:bio], picture: params[:picture])
+        user = User.create(username: params[:username], password: params[:password], email: params[:email], bio: params[:bio])
+        if params[:picture] != ""
+        user.update(picture: params[:picture])
         user[:image] = url_for(user.picture)
         user.save
+        end
 
         if user.valid?
             render json: {user: user, token: issue_token({id: user.id})}
