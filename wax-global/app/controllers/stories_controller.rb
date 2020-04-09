@@ -10,7 +10,6 @@ class StoriesController < ApplicationController
         story = Story.create(user_id: params[:user_id], title: params[:title], content: params[:content], address: params[:address], latitude: params[:latitude], longitude: params[:longitude], country: params[:country])
         if params[:picture] != ""
             story.update(picture: params[:picture])
-            # byebug
             story[:image] = url_for(story.picture)
         elsif params[:movie] != ""
             story.update(movie: params[:movie])

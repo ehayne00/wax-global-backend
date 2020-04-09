@@ -5,7 +5,7 @@ class User < ApplicationRecord
     has_one_attached :picture
     
     validates :username, {presence: true, uniqueness: true}
-    validates :password_digest, {presence: true, length: {minimum: 6}}
+    validates :password, {presence: true, length: {minimum: 6}}
     validates :email, {presence: true}
     validates_format_of :email, with:/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
